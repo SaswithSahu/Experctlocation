@@ -1,8 +1,7 @@
 
 .post-container{
     box-sizing: border-box;
-    height: 70vh;
-    width: 40vw;
+    width: 60vw;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 12px;
     -webkit-border-radius: 12px;
@@ -14,6 +13,11 @@
     justify-content: center;
     align-items: flex-start;
     padding-left: 40px;
+    margin-left: 20%;
+    margin-top: 40px;
+    padding-bottom: 30px;
+    margin-inline-start: 60px;
+    padding-right: 30px;
 }
 .submit-post{
     background-color: blue;
@@ -30,7 +34,7 @@
     -o-border-radius: 5px;
     cursor: pointer;
     margin-top: 20px;
-    
+
 }
 .file{
     border: 0px;

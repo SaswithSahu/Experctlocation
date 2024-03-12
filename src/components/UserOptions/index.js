@@ -27,7 +27,6 @@ class UserOptions extends Component{
                         {showNewConnections && <NewConnection/>}
                     </div>
                     </div>
-            
                 )
 
             }

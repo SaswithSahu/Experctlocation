@@ -1,41 +1,61 @@
 import React, { useState } from 'react';
+//import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './index.css'; // Import your CSS file
 
 const RegistrationForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: '',
     username: '',
     email: '',
     password: '',
-    password2: '',
-    role: 'user',
   });
+  const [role,setRole] = useState("user")
+
+  const roleHandleChange =(e) =>{
+    setRole(e.target.value)
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your form submission logic here
-    console.log('Form submitted:', formData);
+    //console.log('Form submitted:', formData);
+    try {
+      console.log(role)
+      const apiUrl = role === 'user' ? 'http://localhost:3000/students/register' : 'http://localhost:3000/tutors/register';
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: JSON.stringify(formData),
+      };
+
+      const response = await fetch(apiUrl, options);
+      const data = await response.json();
+      console.log(data)
+      if (response.status === 201) {
+        if(role === 'user')
+        {
+              navigate('/student/login');
+        }
+        else
+              navigate('/tutor/login');
+      }
+    } catch (error) {
+      console.error('Error registering user:', error);
+      // Handle registration error here (e.g., display an error message to the user)
+    }
   };
 
   return (
     <div className="registration-container">
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-        </div>
         <div className="form-group">
           <label htmlFor="username">Username</label>
           <input
@@ -69,26 +89,16 @@ const RegistrationForm = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="password2">Confirm Password</label>
-          <input
-            type="password"
-            name="password2"
-            id="password2"
-            placeholder="Confirm Password"
-            value={formData.password2}
-            onChange={handleChange}
-          />
-        </div>
+      
         <div className="form-group">
           <label htmlFor="role">Role</label>
           <select
             name="role"
             id="role"
-            value={formData.role}
-            onChange={handleChange}
+            value={role}
+            onChange={roleHandleChange}
           >
-            <option value="user">User</option>
+            <option value="user">Student</option>
             <option value="tutor">Tutor</option>
           </select>
         </div>

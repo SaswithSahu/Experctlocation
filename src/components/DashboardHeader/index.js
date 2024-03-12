@@ -1,28 +1,24 @@
-// import {Link} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import "./index.css"
-const DashboardHeader =() =>(
-    (
+const DashboardHeader =() =>{
+   const navigate = useNavigate()
+    return(
         <nav className="nav-header">
           <div className="nav-content">
             <div className="nav-bar-large-container">
-               Your LOgo
+               <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXYkQ84aYDqpNA-fIv74FP3Nb7d0tGDQxC9Q&usqp=CAU" alt = "logo" className="image"/>
               <ul className="nav-menu">
-              <a href = "/home" className="nav-menu-item">
-                    Home
-                </a>
-                <a href = "my-connections" className="nav-menu-item">
-                    MyConnections
-                </a>
-                <a href = "chats" className="nav-menu-item">
-                  Chats
-                </a>
-                <a href= "notifications" className="nav-menu-item">
-                  Notifications
-                </a>
+                <a href="dashboard-student" className="nav-menu-item">Home</a>
+                <a href="my-connections" className="nav-menu-item">MyConnections</a>
+                <a href = "chats" className="nav-menu-item">Chats</a>
+                <a href="notifications" className="nav-menu-item">Notifications</a>
+                <a href="posts" className="nav-menu-item">Posts</a>
+
               </ul>
               <button
                 type="button"
                 className="logout-desktop-btn"
+                onClick={() =>{navigate("/registration")}}
               >
                 Logout
               </button>
@@ -56,6 +52,6 @@ const DashboardHeader =() =>(
         </nav>
       )
 
-)
+    }
 
 export default DashboardHeader

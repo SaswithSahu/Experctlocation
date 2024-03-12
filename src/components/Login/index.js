@@ -1,55 +1,23 @@
-import React, { useState } from 'react';
-import './index.css'; // Import your CSS file
+import { PiStudentBold } from "react-icons/pi";
+import { GiTeacher } from "react-icons/gi";
+import "./index.css"
 
-const LoginForm = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your login logic here
-    console.log('Login submitted:', formData);
-  };
-
-  return (
-    <div className="auth-container">
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            placeholder="Username"
-            value={formData.username}
-            onChange={handleChange}
-          />
+const Login = () =>(
+    <div className="login-container">
+        <a href="/student/login" style={{textDecoration:"none"}}>
+        <div className="card">
+            <PiStudentBold className="icon"/>
+            <h1>Student</h1>
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-          />
+        </a>
+        <a href="tutor/login" style={{textDecoration:"none"}}>
+        <div className="card">
+        <GiTeacher className="icon"/>
+        <h1>Tutor</h1>
         </div>
-        <button type="submit">Login</button>
-      </form>
-      <div className="register-link">
-        Don't have an account? <a href="/registration">Register Now</a>
-      </div>
+        </a>
+        
     </div>
-  );
-};
+)
 
-export default LoginForm;
+export default Login
