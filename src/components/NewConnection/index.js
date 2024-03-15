@@ -108,9 +108,9 @@ const NewConnection = () => {
               onClick={() => moveTo(tutor._id)}
             >
               <img
-                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                alt="profile"
+                src= {tutor.profilePic}
                 className="new-connection-profile"
+                alt="pro"
               />
               <div className="new-connection-details-container">
                 <h1 className="new-connection-name">{tutor.username}</h1>

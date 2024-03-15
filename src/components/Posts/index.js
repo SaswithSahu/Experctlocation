@@ -3,20 +3,29 @@ import "./index.css";
 
 const Post = () => {
   const [content, setContent] = useState('');
+  const [image,setImage] = useState("")
 
 
   const handleContentChange = (event) => {
     setContent(event.target.value);
   };
 
+  const handleFileChange = async (e) => {
+    var reader = new FileReader()
+    reader.readAsDataURL(e.target.files[0]) 
+    reader.onload = () =>{
+      setImage({image:reader.result})
+    }
+};
+
   const handleSubmit = async () => {
     try {
       const token = localStorage.getItem("tutor");
-  
       const data = {
         content: content,
+        image:image.image
       };
-  
+      console.log(data)
       const response = await fetch('http://localhost:3000/posts', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -46,8 +55,17 @@ const Post = () => {
         value={content}
         onChange={handleContentChange}
       />
-      <input type="file" className="file"/>
-      <button className="submit-post" onClick={handleSubmit}>
+      <div className="form-group" >
+          <label htmlFor="profilePic">Upload Picture</label>
+          <input
+            type={"file"}
+            name="profilePic"
+            id="profilePic"
+            onChange={handleFileChange}
+            style={{border:"0px"}}
+          />
+       </div>
+          <button className="submit-post" onClick={handleSubmit}>
         Submit
       </button>
     </div>

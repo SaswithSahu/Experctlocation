@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { imagetoBase64 } from '../imagetoBase64';
+//import { imagetoBase64 } from '../imagetoBase64';
 import './index.css';
 
 const EditProfileForm = () => {
@@ -48,13 +48,18 @@ const EditProfileForm = () => {
   };
 
   const handleFileChange = async (e) => {
-    const file =  await imagetoBase64(e.target.files[0])
-
-    setFormData({ ...formData, profilePic: file });
+    
+      var reader = new FileReader()
+      reader.readAsDataURL(e.target.files[0])  
+      reader.onload = () =>{
+        console.log(reader.result)
+        setFormData({...formData,profilePic:reader.result})
+      }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData)
     try {
 
         const { username, email, ...updatedData } = formData;
@@ -140,7 +145,7 @@ const EditProfileForm = () => {
             id="profilePic"
             onChange={handleFileChange}
           />
-        </div>
+          <img src = {formData.profilePic} alt = "pro" style={{height:"100px",width:"100px"}}/>        </div>
         <button type="submit">Save Changes</button>
       </form>
     </div>

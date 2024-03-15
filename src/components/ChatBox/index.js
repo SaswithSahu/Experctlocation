@@ -43,6 +43,7 @@ class ChatBox extends Component{
     render(){
         const {show,message} = this.props
         console.log("show",show)
+        console.log("mess",message)
         // const idd = show._id ? show._id : show.studentId
         const {content} = this.state
       return(
@@ -50,13 +51,13 @@ class ChatBox extends Component{
                 {show.username ?(
                     <>
                      <div className="chat-header">
-                     <img src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="profile" className="chat-box-profile"/>
+                     <img src = {show.profilePic} alt="profile" className="chat-box-profile"/>
                      <h1 className="chat-box-username">{show.username}</h1>
                      </div>
                      <div className="chat-body">
                          <ul className="messages-list">
                             {message.map(each =>(
-                                <li className={each.senderId ===  show._id?  "reply-messages" :"send-messages"} key = {each._id}>
+                                <li className={each.receiverId ===  show._id?  "reply-messages" :"send-messages"} key = {each._id}>
                                 {each.content}
                               </li>
                             ))}

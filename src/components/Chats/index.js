@@ -29,7 +29,7 @@ class Chats extends Component{
               mode: "cors",
             });
             const data = await response.json();
-            console.log(data)
+            //console.log("data",data)
             if (response.ok) {
               if(token1)
                 this.setState({connections : data.connectedTutors });
@@ -88,7 +88,7 @@ class Chats extends Component{
                 {token ? <DashboardHeader/> : <DashboardTutorHeader/>}
                 <div className="chats-body">
                 <MyChats connections = {connections} openChatBox = {this.openChatBox}/>
-                <ChatBox show = {chatbox} message = {message} openChatBox = {this.openChatBox}/>
+                <ChatBox show = {chatbox} message = {message} openChatBox = {this.openChatBox} connections = {connections}/>
                 </div>
             </div>
         )

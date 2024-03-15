@@ -18,6 +18,7 @@ const MessageModel = require("./models/messageSchema")
 const postSchema = new mongoose.Schema({
   content: { type: String, required: true },
   author: { type: String, ref: 'Tutor', required: true },
+  image:{type:String},
   createdAt: { type: Date, default: Date.now },
 });
 
@@ -75,13 +76,15 @@ app.post('/posts', verifyToken, async (req, res) => {
       return res.status(404).json({ error: 'Tutor not found' });
     }
 
-    const { content } = req.body;
-
+    const { content,image } = req.body;
+   
     const newPost = new Post({
       content,
+      image:image,
       author: tutor.username, // Set the author as the tutor's username
     });
 
+     console.log(newPost)
     // Save the post to the database
     const savedPost = await newPost.save();
     res.status(201).json(savedPost);
@@ -269,10 +272,10 @@ app.get('/tutors/profile/1', verifyToken, async (req, res) => {
 
 app.post('/tutors/update-info', verifyToken,  async (req, res) => {
   try {
-    const { about, contact, address, domain, certifications, experience, skills,profilePic } = req.body;
+    const { about, contact, address, domain, certifications, experience, skills,profilePic,latitude,longitude} = req.body;
     const userId = req.userId;
 
-    let updatedTutorData = { about, contact, address, domain, certifications, experience, skills,profilePic };
+    let updatedTutorData = { about, contact, address, domain, certifications, experience, skills,profilePic,latitude,longitude };
 
     // Check if a profile picture is uploaded
     // if (req.file) {
@@ -601,6 +604,7 @@ app.get('/tutors/connected-students', verifyToken, async (req, res) => {
     const connectedStudentsInfo = connectedStudents.map((student) => ({
       _id: student._id,
       username: student.username,
+      profilePic:student.profilePic
     }));
 
     res.status(200).json({

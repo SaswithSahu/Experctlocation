@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import DashboardHeader from "../DashboardHeader";
-import { CgProfile } from "react-icons/cg";
 import DashboardTutorHeader from "../DashboardTutorHeader";
 import { useNavigate } from "react-router-dom";
 
@@ -49,7 +48,7 @@ const MyConnections = () => {
         <ul className="list-of-notification">
           {connections.map((each) => (
             <li className="each-notification" key={each.username} onClick={() => moveTo(each._id)}>
-              <CgProfile className="notification-icon" />
+              <img src = {each.profilePic} alt = "profile" className="chat-box-profile"/>
               <h3>{each.username}</h3>
             </li>
           ))}

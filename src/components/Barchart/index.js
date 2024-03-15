@@ -13,26 +13,7 @@ import {
     const {skills} = props
      const arr = skills.map(each => each.split("-"))
      const data = arr.map(each =>({group_name:each[0],boys:parseInt(each[1])}))
-     console.log("data",data)
-    // [
-    //     {
-    //       group_name: "Group A",
-    //       boys: 2,
-    //     },
-    //     {
-    //       group_name: "Group B",
-    //       boys: 3,
-    //     },
-    //     {
-    //       group_name: "Group C",
-    //       boys: 1,
-    //     },
-    //     {
-    //       group_name: "Group D",
-    //       boys: 7,
-    //     },
-    //   ]
-     console.log(arr)
+    
     const DataFormatter = (number) => {
       if (number > 1000) {
         return `${(number / 1000).toString()}k`

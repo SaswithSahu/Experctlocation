@@ -34,6 +34,7 @@ const PostsList = () => {
       <ul className="posts-list">
         {posts.map(post => (
           <li key={post._id} className="post-card">
+            <img src = {post.image} alt = "ime" style={{height:"250px",width:"80%"}}/>
             <p>Content:{post.content}</p>
             <p>Author: {post.author}</p>
             <p>{new Date(post.createdAt).toLocaleString()}</p>

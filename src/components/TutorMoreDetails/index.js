@@ -27,6 +27,7 @@ class TutorMoreDetails extends Component{
           }
     
           const data = await response.json();
+
           this.setState({ tutor: data.profile });
         } catch (error) {
           console.error('Error fetching tutor profile:', error);
@@ -35,7 +36,7 @@ class TutorMoreDetails extends Component{
     
       render() {
         const { tutor } = this.state;
-    
+       
         if (!tutor) {
           return <div>Loading...</div>;
         }
@@ -44,7 +45,7 @@ class TutorMoreDetails extends Component{
         <>
           <div className="tutor-details-container">
             <div className="profile-pic-container">
-              <img src={tutor.profilePic || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} alt="Tutor Profile" />
+              <img src={tutor.profilePic || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} alt="Tutor Profile" style={{height:"100px",width:"100px",borderRadius:"50%"}} />
             </div>
             <div className="details-container">
               <h1 className="username">{tutor.username}</h1>
@@ -59,6 +60,7 @@ class TutorMoreDetails extends Component{
                 <p>Experience: {tutor.experience} years</p>
                 <p>Certifications: {tutor.certifications.join(', ')}</p>
                 <p>Skills: {tutor.skills.join(', ')}</p>
+                <a href = {`https://www.google.com/maps?q=${tutor.latitude},${tutor.longitude}`} target="_blank">Live Location</a>
               </div>
             </div>
           </div>

@@ -11,6 +11,8 @@ const TutorForm = () => {
     certifications: [],
     experience: '',
     skills: [],
+    latitude:null,
+    longitude:null
   });
 
   const token = localStorage.getItem("token")
@@ -26,8 +28,7 @@ const TutorForm = () => {
             });
             const data = await response.json();
             console.log(data);
-            
-      
+
             setFormData({
               username: data.profile.username,
               email: data.profile.email,
@@ -37,7 +38,9 @@ const TutorForm = () => {
               domain:data.profile.domain || "",
               skills:data.profile.skills || "", 
               certifications:data.profile.skills || "",
-              experience:data.profile.experience || ""
+              experience:data.profile.experience || "",
+              profilePic:data.profile.profilePic || "",
+              
             });
           } catch (error) {
             console.error('Error fetching profile data:', error);
@@ -63,6 +66,34 @@ const TutorForm = () => {
     const skills = e.target.value.split(',');
     setFormData({ ...formData, skills });
   };
+
+  const handleFileChange = async (e) => {
+    var reader = new FileReader()
+    reader.readAsDataURL(e.target.files[0])  
+    reader.onload = () =>{
+      console.log(reader.result)
+      setFormData({...formData,profilePic:reader.result})
+    }
+};
+
+const handleLocation = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setFormData({
+          ...formData,
+          latitude:position.coords.latitude,
+          longitude:position.coords.longitude
+        })
+      },
+      (error) => {
+        console.error('Error getting location:', error.message);
+      }
+    );
+  } else {
+    console.error('Geolocation is not supported by this browser.');
+  }
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -175,6 +206,19 @@ const TutorForm = () => {
             required
           />
         </div>
+        <div className="form-group">
+          <label htmlFor="profilePic">Profile Picture</label>
+          <input
+            type={"file"}
+            name="profilePic"
+            id="profilePic"
+            onChange={handleFileChange}
+          />
+          <img src = {formData.profilePic} alt = "pro" style={{height:"100px",width:"100px"}}/>
+          </div>
+          <button className="location-button" type="button" onClick={handleLocation}>
+          Get Live Location
+        </button>
         <button className = "tutor-form-button" type="submit">Submit</button>
       </form>
     </div>
